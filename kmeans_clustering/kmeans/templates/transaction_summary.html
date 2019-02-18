@@ -1,0 +1,54 @@
+{% extends "admin/change_list.html" %}
+{% load humanize %}
+{% block content_title %}
+    <h1> Transactions Summary </h1>
+{% endblock %}
+
+{% block result_list %}
+
+<div class="results">
+    <table width="30%">
+
+    <thead>
+      <tr>
+        <th>
+          <div class="text">
+            <a href="#">Channel</a>
+          </div>
+        </th>
+        <th>
+          <div class="text">
+            <a href="#">Total</a>
+          </div>
+        </th>
+        <th>
+          <div class="text">
+            <a href="#">Total Sales</a>
+          </div>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for row in summary %}
+      <tr class="{% cycle 'row1' 'row2' %}">
+        <td> {{ row.channel__name }} </td>
+        <td> {{ row.total | intcomma }} </td>
+        <td align="right"> {{ row.total_amount | default:0 | intcomma }} </td>
+      </tr>
+      {% endfor %}
+      <tr style="font-weight:bold; border-top:2px solid #DDDDDD;">
+        <td> Total </td>
+        <td> {{ summary_total.total | intcomma }} </td>
+        <td align="right"> {{ summary_total.total_amount | default:0 | intcomma }} </td>
+       </tr>
+    </tbody>
+
+  </table>
+</div>
+
+<!-- ... -->
+
+{% endblock %}
+
+{% block pagination %}{% endblock %}
